@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * User
@@ -11,7 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @var int
@@ -30,6 +31,13 @@ class User implements UserInterface
     private $name;
 
     /**
+     * @var  string
+     * 
+     *  @ORM\Column(name="username", type="string", length=60, unique=true)
+     */
+    private $username;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=64)
@@ -43,23 +51,24 @@ class User implements UserInterface
      */
     private $email;
 
-
     /**
-     * Get id
      *
-     * @return integer
+     * @ORM\OneToMany(targetEntity="Pool", mappedBy="user")
      */
+    private $pools;
+
+    public function __construct()
+    {
+        $this->pools = new ArrayCollection();
+    }
+
+
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return User
-     */
+
     public function setName($name)
     {
         $this->name = $name;
@@ -67,22 +76,23 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * Get name
-     *
-     * @return string
-     */
     public function getName()
     {
         return $this->name;
     }
 
-    /**
-     * Set password
-     *
-     * @param string $password
-     * @return User
-     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
     public function setPassword($password)
     {
         $this->password = $password;
@@ -90,22 +100,12 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * Get password
-     *
-     * @return string
-     */
     public function getPassword()
     {
         return $this->password;
     }
 
-    /**
-     * Set email
-     *
-     * @param string $email
-     * @return User
-     */
+
     public function setEmail($email)
     {
         $this->email = $email;
@@ -113,20 +113,21 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * Get email
-     *
-     * @return string
-     */
     public function getEmail()
     {
         return $this->email;
     }
 
-
-    public function getUsername()
+    public function getPools()
     {
-        return $this->email;
+        return $this->pools;
+    }
+
+    public function setPools($pools)
+    {
+        $this->pools = $pools;
+
+        return $this;
     }
 
     public function getSalt()
@@ -141,5 +142,27 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
+    }
+
+     /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            $this->email
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            $this->email
+        ) = unserialize($serialized);
     }
 }

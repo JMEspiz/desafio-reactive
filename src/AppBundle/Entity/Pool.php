@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Pool
@@ -29,6 +30,17 @@ class Pool
     private $title;
 
     /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="pools")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
+
+    /**
+     * @ORM\OneToMany(px_set_targetencoding(pxdoc, encoding)Entity="Question", mappedBy="pool")
+     */
+    private $questions;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="create_at", type="datetime")
@@ -41,6 +53,11 @@ class Pool
      * @ORM\Column(name="updated_at", type="datetime")
      */
     private $updatedAt;
+
+    public function __construct()
+    {
+        $this->questions = new ArrayCollection(); 
+    }
 
 
     /**
@@ -74,6 +91,28 @@ class Pool
     public function getTitle()
     {
         return $this->title;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function setUser($user)
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+    public function getQuestions()
+    {
+        return $this->questions;
+    }
+
+    public function setQuestions($questions)
+    {
+        $this->questions = $questions;
+        return $this;
     }
 
     /**

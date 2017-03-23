@@ -14,12 +14,6 @@ class Question
 {
 
     /**
-     * @ORM\ManyToOne(targetEntity="Pool", inversedBy="questions")
-     * @ORM\JoinColumn(name="pool_id",  referencedColumnName="id")
-     */
-    private $pool;
-
-    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -34,6 +28,12 @@ class Question
      * @ORM\Column(name="name", type="text")
      */
     private $name;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Pool", inversedBy="questions")
+     * @ORM\JoinColumn(name="pool_id",  referencedColumnName="id")
+     */
+    private $pool;
 
 
     /**
@@ -67,5 +67,16 @@ class Question
     public function getName()
     {
         return $this->name;
+    }
+
+    public function getPool()
+    {
+        return $this->pool;
+    }
+
+    public function setPool($pool)
+    {
+        $this->pool = $pool;
+        return $this;
     }
 }
