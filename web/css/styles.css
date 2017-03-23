@@ -1,0 +1,12 @@
+body {
+	font-family: 'Lato', sans-serif, helvetica;
+}
+
+.primary-font {
+	font-family: 'Lobster', cursive;
+}
+
+.title {
+	font-weight: bold;
+	font-size: 24px;
+}

@@ -1,0 +1,22 @@
+{
+  "name": "reactive",
+  "version": "1.0.0",
+  "description": "ReActive App, Test para Innobis.cl",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://JMEspiz@gitlab.com/JMEspiz/reactive.git"
+  },
+  "author": "JMEspiz <josemespiz@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/JMEspiz/reactive/issues"
+  },
+  "homepage": "https://gitlab.com/JMEspiz/reactive#README",
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
