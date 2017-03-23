@@ -36,7 +36,7 @@ class Pool
     private $user;
 
     /**
-     * @ORM\OneToMany(px_set_targetencoding(pxdoc, encoding)Entity="Question", mappedBy="pool")
+     * @ORM\OneToMany(targetEntity="Question", mappedBy="pool")
      */
     private $questions;
 
@@ -56,7 +56,7 @@ class Pool
 
     public function __construct()
     {
-        $this->questions = new ArrayCollection(); 
+        $this->questions = new ArrayCollection();
     }
 
 
