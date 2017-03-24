@@ -26,6 +26,7 @@
         </tbody>
     </table>
     <div class="text-center">
-            <a href="{{ path('question_new', {'pool': pool.id }) }}" class="btn btn-default btn-block separation">Create a new question</a>
+            <a href="{{ path('question_new', {'pool': pool.id }) }}" class="btn btn-success btn-block separation">Agregar Nueva Pregunta</a>
+            <a href="{{ path('pool_show', {'id': pool.id }) }}" class="btn btn-default btn-block separation">Regresar a Formulario</a>
     </div>
 {% endblock %}

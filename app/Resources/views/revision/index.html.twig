@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<section class="container">
+  <h1 class="text-center primary-font">{{ pool.title}}</h1>
+  <form class="text-center" method="post" action="{{path('revision_new')}}">
+    {%for question in questions %}
+    <div class="form-group separation">
+      <h4>{{ question.name}}</h4>
+      <div class="radio">
+        <label><input type="radio" name="_r-{{loop.index}}" value="1" checked>Cumple</label>
+        <label><input type="radio" name="_r-{{loop.index}}" value="2">No Cumple</label>
+        <label><input type="radio" name="_r-{{loop.index}}" value="3">No Aplica</label>
+      </div>
+      <input type="hidden" name="_q-{{loop.index}}" value="algo" />
+      <input type="hidden" name="_pool" value="{{pool.id}}" />
+    </div>
+    {% else %}
+    <h4>No hay preguntas cargadas al formulario.</h4>
+    <p>Agrega una <a href="{{ path('question_new', {'pool': pool.id})}}">AQUI</a></p>
+    {% endfor %}
+     <div class="text-center separation">
+      <button class="btn btn-primary" type="submit">Enviar</button>
+    </div>
+    </form>
+</section>
+{% endblock %}
