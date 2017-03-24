@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<section class="container">
+    <h2 class="text-center primary-font">{{pool.title}}</h2>
+    <div class="panel panel-primary">
+      <div class="panel-heading">Formulario</div>
+      <div class="panel-body">
+        <table class="table">
+            <thead>
+              <th>Id</th>
+              <th>Titulo</th>
+              <th>Opciones</th>
+              <th></th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ pool.id }}</td>
+                    <td>{{ pool.title }}</td>
+                    <td>
+                      <a href="{{ path('pool_edit', { 'id': pool.id }) }}" class="btn btn-warning">Editar</a>
+                      <a href="{{ path('question_new', {'pool': pool.id}) }}" class="btn btn-primary">Agregar Pregunta</a>
+                      <a href="{{ path('question_index', {'pool': pool.id}) }}" class="btn btn-info">Listar preguntas</a>
+
+                    </td>
+                    <td>
+                      {{ form_start(delete_form) }}
+                        <input type="submit" value="Borrar" class="btn btn-danger">
+                      {{ form_end(delete_form) }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+      </div>
+      <div class="panel-footer text-right">
+          <a class="btn btn-default" href="{{ path('pool_index') }}">Regresar a listado</a>
+      </div>
+    </div>
+</section>
+{% endblock %}

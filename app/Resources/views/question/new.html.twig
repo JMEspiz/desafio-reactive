@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<section class="container">
+    <h2 class="text-center primary-font">Crear nueva pregunta</h2>
+    <div class="panel panel-primary">
+      <div class="panel-heading">NUEVO</div>
+      <div class="panel-body">
+        {{ form_start(form)}}
+            {{ form_widget(form) }}
+            <div class="text-center">
+                <input type="submit" value="Crear" class="btn btn-success separation"  />
+            </div>
+        {{ form_end(form) }}
+      </div>
+      <div class="panel-footer text-right">
+          <a class="btn btn-default" href="{{ path('pool_index') }}">Regresar a listado</a>
+      </div>
+      </div>
+</section>
+{% endblock %}

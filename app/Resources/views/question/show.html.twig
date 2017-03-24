@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<section class="container">
+    <h2 class="text-center primary-font">{{question.name}}</h2>
+    <div class="panel panel-primary">
+      <div class="panel-heading">Nueva Pregunta</div>
+      <div class="panel-body">
+        <table class="table">
+          <thead>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Opciones</th>
+            <th></th>
+          </thead>
+        <tbody>
+            <tr>
+                <td>{{ question.id }}</td>
+                <td>{{ question.name }}</td>
+                <td>
+                  <a href="{{ path('question_edit', { 'id': question.id }) }}" class="btn btn-warning">Editar</a>
+                </td>
+                <td>
+                  {{ form_start(delete_form) }}
+                    <input type="submit" value="Borrar" class="btn btn-danger">
+                  {{ form_end(delete_form) }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-center separation">
+        <a href="{{ path('question_index', {'pool': pool.id}) }}" class="btn btn-default">Regresar a listado de Formularios</a>
+    </div>
+{% endblock %}

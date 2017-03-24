@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<section class="container">
+  <h1 class="text-center primary-font">Listado de Preguntas</h1>
+  <h3>Formulario: {{ pool.title}}</h3>
+  <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Pregunta</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for question in questions %}
+            <tr>
+                <td><a href="{{ path('question_show', { 'pool': pool.id, 'id': question.id}) }}">{{ question.id }}</a></td>
+                <td>{{ question.name }}</td>
+                <td>
+                    <a href="{{ path('question_show', { 'id': question.id}) }}" class="btn btn-success">Ver</a>
+                    <a href="{{ path('question_edit', { 'id': question.id}) }}" class="btn btn-warning">Editar</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="text-center">
+            <a href="{{ path('question_new', {'pool': pool.id }) }}" class="btn btn-default btn-block separation">Create a new question</a>
+    </div>
+{% endblock %}
