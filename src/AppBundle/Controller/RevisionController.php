@@ -7,6 +7,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Pool;
+use AppBundle\Entity\Revision;
+use AppBundle\Utils\ArrayFilter;
 
 /**
  * Question controller.
@@ -38,63 +40,44 @@ class RevisionController extends Controller
      */
     public function newAction(Request $request)
     {
+			$pattern_question = '/^_q-[0-9]+/';
+    	$pattern_answer = '/^_r-[0-9]+/';
     	$data = $this->get('request')->request->all();
     	$keys_raw = array_keys($data);
-    	$pool = $request->request->get('_pool');
 
-    	$a = [];
-    	$b = [];
+    	$questions_keys = ArrayFilter::getFilterData($pattern_question, $keys_raw);
+    	$answers_keys = ArrayFilter::getFilterData($pattern_answer, $keys_raw);
 
-    	$patron_preguntas = '/^_q-[0-9]+/';
-    	$patron_respuestas = '/^_r-[0-9]+/';
+			$em = $this->getDoctrine()->getManager();
+			for($i = 0; $i < count($questions_keys); $i++){
+				$revision = new Revision();
+				$revision->setQuestion($request->request->get($questions_keys[$i]));
+				$revision->setAnswer($request->request->get($answers_keys[$i]));
+				$em->persist($revision);
+    		$em->flush();
+			}
 
-    	foreach ($keys_raw as $key) {
-    		$output = preg_match($patron_preguntas, $key, $coincidencia);
+    	return $this->redirectToRoute('pool_index');
 
-            if($output){
-    		  array_push($a, $coincidencia);
-            }
-    	}
-
-        foreach ($keys_raw as $value) {
-            $output = preg_match($patron_respuestas, $value, $coincidencia);
-
-            if($output){
-              array_push($b, $coincidencia);
-            }
-        }
-    	
-    	
-
-    	return null;
-       
     }
 
     /**
      * Finds and displays a question entity.
      *
-     * @Route("/{id}", name="revision_show")
+     * @Route("/result/{pool}", name="revision_show")
      * @Method("GET")
      */
-    public function showAction(Revesion $question)
+    public function showAction(Pool $pool)
     {
-        
-    }
+			$questions = $pool->getQuestions();
 
+			$em = $this->getDoctrine()->getManager();
+			$answers = $em->getRepository('AppBundle:Revision')->findAll();
 
-    /**
-     * Creates a form to delete a question entity.
-     *
-     * @param Question $question The question entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Question $question)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('question_delete', array('id' => $question->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
+			return $this->render('revision/show.html.twig', [
+				'pool' => $pool,
+				'questions' => $questions,
+				'answers' => $answers
+			]);
     }
 }

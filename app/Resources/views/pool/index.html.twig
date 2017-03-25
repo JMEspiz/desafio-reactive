@@ -19,7 +19,7 @@
             <a href="{{ path('pool_show', {'id': pool.id}) }}" class="btn btn-info">Ver</a>
             <a href="{{ path('pool_edit', {'id': pool.id}) }}" class="btn btn-warning">Editar</a>
     				<a href="{{ path('revision_index', {'pool': pool.id})}}" class="btn btn-primary">Responder</a>
-    				<a href="#" class="btn btn-success">Resultados</a>
+    				<a href="{{ path('revision_show', {'pool': pool.id})}}" class="btn btn-success">Resultados</a>
     			</td>
     		</tr>
       {% endfor %}

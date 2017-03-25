@@ -22,6 +22,8 @@
                       <a href="{{ path('pool_edit', { 'id': pool.id }) }}" class="btn btn-warning">Editar</a>
                       <a href="{{ path('question_new', {'pool': pool.id}) }}" class="btn btn-primary">Agregar Pregunta</a>
                       <a href="{{ path('question_index', {'pool': pool.id}) }}" class="btn btn-info">Listar preguntas</a>
+                      <a href="{{ path('revision_index', {'pool': pool.id})}}" class="btn btn-default">Responder</a>
+                      <a href="{{ path('revision_show', {'pool': pool.id})}}" class="btn btn-success">Resultados</a>
 
                     </td>
                     <td>

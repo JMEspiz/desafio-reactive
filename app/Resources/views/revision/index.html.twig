@@ -4,6 +4,9 @@
 <section class="container">
   <h1 class="text-center primary-font">{{ pool.title}}</h1>
   <form class="text-center" method="post" action="{{path('revision_new')}}">
+    <input type="hidden" name="_csrf_token"
+        value="{{ csrf_token('authenticate') }}"
+    >
     {%for question in questions %}
     <div class="form-group separation">
       <h4>{{ question.name}}</h4>
@@ -12,7 +15,7 @@
         <label><input type="radio" name="_r-{{loop.index}}" value="2">No Cumple</label>
         <label><input type="radio" name="_r-{{loop.index}}" value="3">No Aplica</label>
       </div>
-      <input type="hidden" name="_q-{{loop.index}}" value="algo" />
+      <input type="hidden" name="_q-{{loop.index}}" value="{{question.id}}" />
       <input type="hidden" name="_pool" value="{{pool.id}}" />
     </div>
     {% else %}

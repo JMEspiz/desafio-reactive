@@ -21,19 +21,13 @@ class Revision
      */
     private $id;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="pool_id", type="integer")
-     */
-    private $poolId;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="question_id", type="integer")
+     * @ORM\Column(name="question", type="integer")
      */
-    private $questionId;
+    private $question;
 
     /**
      * @var int
@@ -46,34 +40,11 @@ class Revision
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set poolId
-     *
-     * @param integer $poolId
-     * @return Revision
-     */
-    public function setPoolId($poolId)
-    {
-        $this->poolId = $poolId;
-
-        return $this;
-    }
-
-    /**
-     * Get poolId
-     *
-     * @return integer 
-     */
-    public function getPoolId()
-    {
-        return $this->poolId;
     }
 
     /**
@@ -82,9 +53,9 @@ class Revision
      * @param integer $questionId
      * @return Revision
      */
-    public function setQuestionId($questionId)
+    public function setQuestion($question)
     {
-        $this->questionId = $questionId;
+        $this->question = $question;
 
         return $this;
     }
@@ -92,11 +63,11 @@ class Revision
     /**
      * Get questionId
      *
-     * @return integer 
+     * @return integer
      */
-    public function getQuestionId()
+    public function getQuestion()
     {
-        return $this->questionId;
+        return $this->question;
     }
 
     /**
@@ -115,7 +86,7 @@ class Revision
     /**
      * Get answer
      *
-     * @return integer 
+     * @return integer
      */
     public function getAnswer()
     {

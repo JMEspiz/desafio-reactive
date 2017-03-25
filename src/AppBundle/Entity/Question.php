@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Question
@@ -34,6 +35,16 @@ class Question
      * @ORM\JoinColumn(name="pool_id",  referencedColumnName="id")
      */
     private $pool;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Revision", mappedBy="question")
+     */
+    private $revisions;
+
+    public function __construct()
+    {
+      $this->revisions = new ArrayCollection();
+    }
 
 
     /**

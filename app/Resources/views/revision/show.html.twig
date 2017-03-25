@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<section class="container">
+  <h1 class="text-center primary-font">{{ pool.title}}</h1>
+  <table class="table">
+    <tbody>
+      {%for question in questions %}
+      <tr>
+        <td>{{ question.name}}</td>
+        <td>
+          Cumple:
+          {% set value = 0 %}
+          {% for answer in answers %}
+            {% if answer.question == question.id and answer.answer == 1 %}
+              {% set value = value + 1 %}
+            {% endif %}
+          {% endfor %}
+          {{ value}}
+        </td>
+        <td>No Cumple:
+          {% set value = 0 %}
+          {% for answer in answers %}
+            {% if answer.question == question.id and answer.answer == 2 %}
+              {% set value = value + 1 %}
+            {% endif %}
+          {% endfor %}
+          {{ value}}
+        </td>
+        <td>
+          No aplica:
+          {% set value = 0 %}
+          {% for answer in answers %}
+            {% if answer.question == question.id  and answer.answer == 3 %}
+              {% set value = value + 1 %}
+            {% endif %}
+          {% endfor %}
+          {{ value}}
+        </td>
+      </tr>
+    {% else %}
+    <h4>No hay preguntas cargadas al formulario.</h4>
+    <p>Agrega una <a href="{{ path('question_new', {'pool': pool.id})}}">AQUI</a></p>
+    {% endfor %}
+  </tbody>
+</table>
+
+  <div class="text-center separation">
+   <a class="btn btn-default" href="{{ path('pool_index')}}">Regresar</a>
+ </div>
+{% endblock %}
