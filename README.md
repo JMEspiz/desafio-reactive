@@ -25,3 +25,4 @@ Desafio asignado por la empresa Innobis.cl
 - Composer Install
 - cd web
 - yarn install (o npm install)
+- importar data de db.sql
